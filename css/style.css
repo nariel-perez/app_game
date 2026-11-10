@@ -559,77 +559,120 @@ body {
   }
 }
 
-/* Optimización en Celulares en Modo Horizontal (Landscape) */
+/* Optimización en Celulares en Modo Horizontal (Landscape): Vista 2 Columnas SIN SCROLL */
 @media (max-height: 540px) and (orientation: landscape) {
   body {
-    padding: 4px;
-    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
   }
 
   .game-shell {
     max-width: 100%;
-    padding: 6px;
-    gap: 6px;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    padding: 5px 8px;
+    gap: 5px;
     border-width: 2px;
+    box-shadow: none;
+    display: grid;
+    grid-template-columns: 54% 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "hud hud"
+      "viewport dialog"
+      "viewport options";
   }
 
   .hud-bar {
-    padding: 4px 8px;
+    grid-area: hud;
+    padding: 3px 6px;
     gap: 4px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 
   .hud-stats {
-    gap: 6px;
-    font-size: 0.72rem;
+    gap: 4px;
+    font-size: 0.68rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
   }
 
   .stat-box {
-    padding: 2px 6px;
+    padding: 2px 5px;
+  }
+
+  .hud-controls {
+    flex-wrap: nowrap;
+    gap: 4px;
+    flex-shrink: 0;
   }
 
   .hud-btn {
-    padding: 3px 8px;
-    font-size: 0.72rem;
+    padding: 2px 6px;
+    font-size: 0.68rem;
+    white-space: nowrap;
+  }
+
+  .viewport-frame {
+    grid-area: viewport;
+    height: 100%;
+    min-height: 0;
+    border-width: 2px;
   }
 
   #scene-canvas {
-    max-height: 44vh;
-    width: auto;
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
 
   .dialog-box {
-    padding: 6px 10px;
-    min-height: 64px;
-    gap: 10px;
+    grid-area: dialog;
+    padding: 6px 8px;
+    min-height: 0;
+    height: 100%;
+    gap: 8px;
+    border-width: 2px;
+    overflow-y: auto;
   }
 
   #portrait-canvas {
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
   }
 
   .speaker-header {
     padding-bottom: 2px;
+    gap: 6px;
+    flex-wrap: wrap;
   }
 
   #speaker-name {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
   }
 
   #speaker-role {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
   }
 
   #dialog-text {
-    font-size: 0.8rem;
-    line-height: 1.3;
-    min-height: 2.4em;
+    font-size: 0.75rem;
+    line-height: 1.26;
+    min-height: 0;
   }
 
   .options-panel {
-    padding: 6px 8px;
+    grid-area: options;
+    padding: 5px 6px;
+    border-width: 2px;
+    max-height: 48vh;
+    overflow-y: auto;
   }
 
   .options-title {
@@ -637,12 +680,16 @@ body {
   }
 
   #options-container {
-    gap: 6px;
+    gap: 4px;
+    flex-direction: column;
   }
 
   .rpg-btn {
-    padding: 6px 10px;
-    font-size: 0.78rem;
+    width: 100%;
+    padding: 5px 8px;
+    font-size: 0.73rem;
+    line-height: 1.2;
+    box-shadow: 0 2px 0 #090c14;
   }
 
   .game-footer {
@@ -651,8 +698,8 @@ body {
 
   .modal-overlay {
     inset: 4px;
-    padding: 10px;
-    gap: 8px;
+    padding: 8px;
+    gap: 6px;
   }
 }
 
