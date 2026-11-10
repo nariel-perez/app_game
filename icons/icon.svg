@@ -1,23 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" shape-rendering="crispEdges">
-  <!-- Fondo azul oscuro retro -->
-  <rect width="128" height="128" fill="#161b29" />
-  <!-- Marco dorado pixel art -->
-  <rect x="4" y="4" width="120" height="120" fill="none" stroke="#ffd166" stroke-width="6" />
-  <rect x="12" y="12" width="104" height="104" fill="#0d111a" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" shape-rendering="geometricPrecision">
+  <!-- Fondo circular exterior y anillo celeste claro tipo escudo M3BN -->
+  <circle cx="64" cy="64" r="61" fill="#eaf4f8" stroke="#0d3153" stroke-width="4.5" />
+  <circle cx="64" cy="64" r="46" fill="#ffffff" stroke="#0d3153" stroke-width="3.2" />
 
-  <!-- Erlenmeyer / Matraz de Fisicoquímica -->
-  <rect x="54" y="24" width="20" height="8" fill="#7bdff2" />
-  <rect x="58" y="32" width="12" height="18" fill="#7bdff2" />
-  <polygon points="58,50 70,50 92,94 36,94" fill="#1d2336" stroke="#7bdff2" stroke-width="4" />
+  <!-- Cadenas poliméricas / surfactantes radiales en zig-zag (12 ramas) -->
+  <g stroke="#0d3153" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 0 deg (Derecha) -->
+    <polyline points="82,64 89,60 95,66 102,61 107,65" />
+    <!-- 30 deg -->
+    <polyline points="79,73 86,74 89,81 96,81" />
+    <!-- 60 deg -->
+    <polyline points="73,79 75,86 81,89 82,97" />
+    <!-- 90 deg (Abajo) -->
+    <polyline points="64,82 60,89 66,95 61,102 64,107" />
+    <!-- 120 deg -->
+    <polyline points="55,79 48,82 50,89 44,95" />
+    <!-- 150 deg -->
+    <polyline points="49,73 41,72 39,79 32,80" />
+    <!-- 180 deg (Izquierda) -->
+    <polyline points="46,64 39,68 33,62 26,67 21,63" />
+    <!-- 210 deg -->
+    <polyline points="49,55 42,54 39,47 32,47" />
+    <!-- 240 deg -->
+    <polyline points="55,49 53,42 47,39 45,31" />
+    <!-- 270 deg (Arriba) -->
+    <polyline points="64,46 68,39 62,33 67,26 64,21" />
+    <!-- 300 deg -->
+    <polyline points="73,49 80,46 78,39 84,33" />
+    <!-- 330 deg -->
+    <polyline points="79,55 87,56 89,49 96,48" />
+  </g>
 
-  <!-- Líquido verde esmeralda reactivo -->
-  <polygon points="44,74 84,74 89,90 39,90" fill="#06d6a0" />
+  <!-- Monómeros / Cuentas (Azules, Celestes y Naranjas como en el logo M3BN) -->
+  <g stroke="#0d3153" stroke-width="1.3">
+    <!-- Cuentas Naranjas destacadas -->
+    <circle cx="107" cy="65" r="3.2" fill="#f49d52" />
+    <circle cx="45" cy="31" r="3.2" fill="#f49d52" />
+    <circle cx="47" cy="39" r="2.8" fill="#f49d52" />
+    <circle cx="82" cy="97" r="3.2" fill="#f49d52" />
+    <circle cx="79" cy="55" r="2.6" fill="#f49d52" />
+    <circle cx="53" cy="42" r="2.6" fill="#f49d52" />
 
-  <!-- Burbujas / Protones y Rayo de Faraday -->
-  <rect x="54" y="80" width="6" height="6" fill="#ffd166" />
-  <rect x="68" y="82" width="4" height="4" fill="#ffffff" />
-  <rect x="61" y="62" width="6" height="6" fill="#ff5964" />
+    <!-- Cuentas Celestes claras -->
+    <circle cx="21" cy="63" r="3.2" fill="#5bc0be" />
+    <circle cx="96" cy="48" r="3.2" fill="#5bc0be" />
+    <circle cx="84" cy="33" r="3.2" fill="#5bc0be" />
+    <circle cx="44" cy="95" r="3.2" fill="#5bc0be" />
+    <circle cx="66" cy="95" r="2.8" fill="#5bc0be" />
+    <circle cx="89" cy="60" r="2.6" fill="#5bc0be" />
 
-  <!-- Etiqueta RPG inferior -->
-  <rect x="24" y="98" width="80" height="14" fill="#ffd166" />
+    <!-- Cuentas Azules intermedias -->
+    <circle cx="95" cy="66" r="2.8" fill="#2c7da0" />
+    <circle cx="102" cy="61" r="2.8" fill="#2c7da0" />
+    <circle cx="89" cy="81" r="2.8" fill="#2c7da0" />
+    <circle cx="96" cy="81" r="3.0" fill="#2c7da0" />
+    <circle cx="75" cy="86" r="2.8" fill="#2c7da0" />
+    <circle cx="60" cy="89" r="2.8" fill="#2c7da0" />
+    <circle cx="64" cy="107" r="3.0" fill="#2c7da0" />
+    <circle cx="50" cy="89" r="2.8" fill="#2c7da0" />
+    <circle cx="39" cy="79" r="2.8" fill="#2c7da0" />
+    <circle cx="32" cy="80" r="3.0" fill="#2c7da0" />
+    <circle cx="33" cy="62" r="2.8" fill="#2c7da0" />
+    <circle cx="26" cy="67" r="2.8" fill="#2c7da0" />
+    <circle cx="39" cy="47" r="2.8" fill="#2c7da0" />
+    <circle cx="32" cy="47" r="3.0" fill="#2c7da0" />
+    <circle cx="68" cy="39" r="2.8" fill="#2c7da0" />
+    <circle cx="62" cy="33" r="2.8" fill="#2c7da0" />
+    <circle cx="64" cy="21" r="3.0" fill="#2c7da0" />
+    <circle cx="78" cy="39" r="2.8" fill="#2c7da0" />
+    <circle cx="89" cy="49" r="2.8" fill="#2c7da0" />
+  </g>
+
+  <!-- Nanopartícula / Núcleo Central Azul con volumen y brillo -->
+  <circle cx="64" cy="64" r="18.5" fill="#2c7da0" stroke="#0d3153" stroke-width="3" />
+  <path d="M 52 76 A 16 16 0 0 0 78 52 A 14 14 0 0 1 52 76 Z" fill="#1d5b79" />
+  <circle cx="58" cy="57" r="6" fill="#4ea8de" opacity="0.75" />
+
+  <!-- Leyenda Superior en el Anillo -->
+  <text x="64" y="13.5" text-anchor="middle" font-family="monospace, sans-serif" font-weight="900" font-size="6.5" fill="#0d3153" letter-spacing="0.4">
+    MATERIALES BLANDOS · NANO
+  </text>
+
+  <!-- Sigla Principal M3BN bien destacada en la base del anillo -->
+  <text x="64" y="121.5" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="14" fill="#0d3153" letter-spacing="1.5">
+    M3BN
+  </text>
 </svg>

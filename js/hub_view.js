@@ -44,6 +44,114 @@ window.HubView = (function () {
     ctx.restore();
   }
 
+  /**
+   * Dibuja el Escudo / Logo del Grupo M3BN (Modelado Molecular de Materiales Blandos y Nanoestructurados)
+   * 100% por código Canvas 2D (nanopartícula central, cadenas poliméricas con cuentas y anillo M3BN).
+   */
+  function drawM3BNShield(ctx, cx, cy, outerR, animTick) {
+    ctx.save();
+    ctx.translate(cx, cy);
+
+    // Anillo exterior celeste claro con borde azul marino oscuro (#0d3153)
+    ctx.beginPath();
+    ctx.arc(0, 0, outerR, 0, Math.PI * 2);
+    ctx.fillStyle = '#eaf4f8';
+    ctx.fill();
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = '#0d3153';
+    ctx.stroke();
+
+    // Círculo interior blanco donde se despliega la micela/nanopartícula
+    const innerR = outerR * 0.75;
+    ctx.beginPath();
+    ctx.arc(0, 0, innerR, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    ctx.lineWidth = 1.8;
+    ctx.strokeStyle = '#0d3153';
+    ctx.stroke();
+
+    // 10 Cadenas poliméricas radiales en zig-zag con cuentas (azul, celeste y naranja)
+    const numChains = 10;
+    const coreR = outerR * 0.30;
+    const orangeIndices = { '0_2': true, '3_2': true, '6_1': true, '7_2': true, '8_0': true };
+    const cyanIndices = { '1_2': true, '4_2': true, '5_1': true, '9_2': true };
+
+    for (let i = 0; i < numChains; i++) {
+      const baseAngle = (i * Math.PI * 2) / numChains;
+      const sway = Math.sin(animTick * 0.04 + i * 1.1) * 0.04;
+
+      const pts = [];
+      for (let s = 0; s <= 3; s++) {
+        const dist = coreR + (s / 3) * (innerR - coreR - 3);
+        const zig = s === 0 ? 0 : (s % 2 === 1 ? 0.13 : -0.11) + sway;
+        const a = baseAngle + zig;
+        pts.push({
+          x: Math.cos(a) * dist,
+          y: Math.sin(a) * dist
+        });
+      }
+
+      // Línea de enlace polimérico
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for (let s = 1; s < pts.length; s++) {
+        ctx.lineTo(pts[s].x, pts[s].y);
+      }
+      ctx.strokeStyle = '#0d3153';
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+
+      // Monómeros / esferitas en los vértices
+      for (let s = 1; s < pts.length; s++) {
+        const key = `${i}_${s - 1}`;
+        let beadColor = '#2c7da0';
+        if (orangeIndices[key]) beadColor = '#f49d52';
+        else if (cyanIndices[key]) beadColor = '#5bc0be';
+
+        ctx.beginPath();
+        ctx.arc(pts[s].x, pts[s].y, 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = beadColor;
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#0d3153';
+        ctx.stroke();
+      }
+    }
+
+    // Esfera / Nanopartícula central azul con sombreado y brillo
+    ctx.beginPath();
+    ctx.arc(0, 0, coreR, 0, Math.PI * 2);
+    ctx.fillStyle = '#2c7da0';
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#0d3153';
+    ctx.stroke();
+
+    // Brillo superior izquierdo en la nanopartícula
+    ctx.beginPath();
+    ctx.arc(-coreR * 0.3, -coreR * 0.3, coreR * 0.34, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(123, 223, 242, 0.65)';
+    ctx.fill();
+
+    // Texto superior en el anillo ("MAT. BLANDOS · NANO")
+    ctx.fillStyle = '#0d3153';
+    ctx.font = 'bold 5.5px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('MODELADO MOLECULAR', 0, -outerR * 0.86);
+
+    // Cartel / Placa destacada "M3BN" en la base del escudo para máxima legibilidad
+    drawPixelBox(ctx, -28, outerR - 11, 56, 15, '#eaf4f8', '#0d3153', 2);
+    ctx.fillStyle = '#0d3153';
+    ctx.font = 'bold 11px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('M3BN', 0, outerR - 3);
+
+    ctx.restore();
+  }
+
   return {
     /**
      * Dibuja el retrato pixel-art en el canvas de avatar (64x64)
@@ -263,35 +371,52 @@ window.HubView = (function () {
       }
 
       // =======================================================================
-      // PERSONAJE CENTRAL: EL JTP CON SU MATE Y SELLO
+      // ESCUDO DEL GRUPO M3BN Y PERSONAJE CENTRAL (EL JTP)
       // =======================================================================
       const centerCx = w / 2;
-      drawPixelBox(ctx, centerCx - 40, cardY + 38, 80, 148, '#1b2234', '#ffd166', 2);
-      ctx.fillStyle = '#ffd166';
-      ctx.font = 'bold 10px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('EL JTP', centerCx, cardY + 55);
+      drawPixelBox(ctx, centerCx - 42, cardY, 84, cardH, '#1b2234', '#ffd166', 2);
 
-      // Sprite de cuerpo medio del JTP en el centro
+      // Escudo M3BN bien visible en la mitad superior de la columna central
+      drawM3BNShield(ctx, centerCx, cardY + 46, 35, tick);
+
+      // Subtítulo del grupo debajo del escudo
+      ctx.fillStyle = '#7bdff2';
+      ctx.font = 'bold 9px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('GRUPO M3BN', centerCx, cardY + 102);
+
+      // Línea divisoria sutil
+      ctx.strokeStyle = '#354163';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(centerCx - 34, cardY + 109);
+      ctx.lineTo(centerCx + 34, cardY + 109);
+      ctx.stroke();
+
+      // Sprite del JTP debajo del escudo
+      ctx.fillStyle = '#ffd166';
+      ctx.font = 'bold 9px monospace';
+      ctx.fillText('EL JTP', centerCx, cardY + 122);
+
       ctx.fillStyle = '#f1faee';
-      ctx.fillRect(centerCx - 22, cardY + 112, 44, 42);
+      ctx.fillRect(centerCx - 20, cardY + 168, 40, 30);
       ctx.fillStyle = '#a8dadc';
-      ctx.fillRect(centerCx - 6, cardY + 112, 12, 42);
+      ctx.fillRect(centerCx - 5, cardY + 168, 10, 30);
       ctx.fillStyle = '#f4a261';
-      ctx.fillRect(centerCx - 14, cardY + 82, 28, 28);
+      ctx.fillRect(centerCx - 13, cardY + 140, 26, 26);
       ctx.fillStyle = '#4a4e69';
-      ctx.fillRect(centerCx - 16, cardY + 75, 32, 9);
-      ctx.fillRect(centerCx - 14, cardY + 102, 28, 8);
+      ctx.fillRect(centerCx - 15, cardY + 133, 30, 8);
+      ctx.fillRect(centerCx - 13, cardY + 159, 26, 7);
       ctx.strokeStyle = '#ffd166';
       ctx.lineWidth = 2;
-      ctx.strokeRect(centerCx - 12, cardY + 88, 10, 7);
-      ctx.strokeRect(centerCx + 2, cardY + 88, 10, 7);
+      ctx.strokeRect(centerCx - 11, cardY + 145, 9, 6);
+      ctx.strokeRect(centerCx + 2, cardY + 145, 9, 6);
 
-      // Contador de sellos debajo del JTP
+      // Contador de sellos al pie de la columna central
       const count = window.MissionsRegistry.getCompletedCount();
       ctx.fillStyle = count === 2 ? '#06d6a0' : '#ffd166';
-      ctx.font = 'bold 11px monospace';
-      ctx.fillText(`Sellos: ${count}/2`, centerCx, cardY + 174);
+      ctx.font = 'bold 10px monospace';
+      ctx.fillText(`Sellos: ${count}/2`, centerCx, cardY + 212);
 
       // =======================================================================
       // TARJETA / MESADA 2 (DERECHA): LA INVERSIÓN DE LA SACAROSA (POLARIMETRÍA)
