@@ -371,52 +371,43 @@ window.HubView = (function () {
       }
 
       // =======================================================================
-      // ESCUDO DEL GRUPO M3BN Y PERSONAJE CENTRAL (EL JTP)
+      // PERSONAJE CENTRAL: EL JTP CON SU MATE Y SELLO
       // =======================================================================
       const centerCx = w / 2;
-      drawPixelBox(ctx, centerCx - 42, cardY, 84, cardH, '#1b2234', '#ffd166', 2);
-
-      // Escudo M3BN bien visible en la mitad superior de la columna central
-      drawM3BNShield(ctx, centerCx, cardY + 46, 35, tick);
-
-      // Subtítulo del grupo debajo del escudo
-      ctx.fillStyle = '#7bdff2';
-      ctx.font = 'bold 9px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('GRUPO M3BN', centerCx, cardY + 102);
-
-      // Línea divisoria sutil
-      ctx.strokeStyle = '#354163';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(centerCx - 34, cardY + 109);
-      ctx.lineTo(centerCx + 34, cardY + 109);
-      ctx.stroke();
-
-      // Sprite del JTP debajo del escudo
+      drawPixelBox(ctx, centerCx - 40, cardY + 38, 80, 148, '#1b2234', '#ffd166', 2);
       ctx.fillStyle = '#ffd166';
-      ctx.font = 'bold 9px monospace';
-      ctx.fillText('EL JTP', centerCx, cardY + 122);
+      ctx.font = 'bold 10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('EL JTP', centerCx, cardY + 55);
 
+      // Sprite de cuerpo medio del JTP en el centro
       ctx.fillStyle = '#f1faee';
-      ctx.fillRect(centerCx - 20, cardY + 168, 40, 30);
+      ctx.fillRect(centerCx - 22, cardY + 112, 44, 42);
       ctx.fillStyle = '#a8dadc';
-      ctx.fillRect(centerCx - 5, cardY + 168, 10, 30);
+      ctx.fillRect(centerCx - 6, cardY + 112, 12, 42);
       ctx.fillStyle = '#f4a261';
-      ctx.fillRect(centerCx - 13, cardY + 140, 26, 26);
+      ctx.fillRect(centerCx - 14, cardY + 82, 28, 28);
       ctx.fillStyle = '#4a4e69';
-      ctx.fillRect(centerCx - 15, cardY + 133, 30, 8);
-      ctx.fillRect(centerCx - 13, cardY + 159, 26, 7);
+      ctx.fillRect(centerCx - 16, cardY + 75, 32, 9);
+      ctx.fillRect(centerCx - 14, cardY + 102, 28, 8);
       ctx.strokeStyle = '#ffd166';
       ctx.lineWidth = 2;
-      ctx.strokeRect(centerCx - 11, cardY + 145, 9, 6);
-      ctx.strokeRect(centerCx + 2, cardY + 145, 9, 6);
+      ctx.strokeRect(centerCx - 12, cardY + 88, 10, 7);
+      ctx.strokeRect(centerCx + 2, cardY + 88, 10, 7);
 
-      // Contador de sellos al pie de la columna central
+      // Contador de sellos debajo del JTP
       const count = window.MissionsRegistry.getCompletedCount();
       ctx.fillStyle = count === 2 ? '#06d6a0' : '#ffd166';
-      ctx.font = 'bold 10px monospace';
-      ctx.fillText(`Sellos: ${count}/2`, centerCx, cardY + 212);
+      ctx.font = 'bold 11px monospace';
+      ctx.fillText(`Sellos: ${count}/2`, centerCx, cardY + 174);
+
+      // Renderizar también el Escudo M3BN grande en el canvas superior (#m3bn-logo-canvas)
+      const logoCanvas = document.getElementById('m3bn-logo-canvas');
+      if (logoCanvas) {
+        const lctx = logoCanvas.getContext('2d');
+        lctx.clearRect(0, 0, logoCanvas.width, logoCanvas.height);
+        drawM3BNShield(lctx, logoCanvas.width / 2, logoCanvas.height / 2 - 2, 33, tick);
+      }
 
       // =======================================================================
       // TARJETA / MESADA 2 (DERECHA): LA INVERSIÓN DE LA SACAROSA (POLARIMETRÍA)

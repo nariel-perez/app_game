@@ -3,7 +3,7 @@
  * Cachea todos los recursos del juego para que funcione sin conexión en el laboratorio.
  */
 
-const CACHE_NAME = 'lab-rpg-cache-v3';
+const CACHE_NAME = 'lab-rpg-cache-v4';
 
 const ASSETS_TO_CACHE = [
   './',

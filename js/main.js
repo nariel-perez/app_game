@@ -69,9 +69,11 @@ window.App = (function () {
     const total = window.MissionsRegistry.getTotalCount();
     dom.btnLibreta.textContent = `🪪 Libreta (${completed}/${total})`;
 
+    const crestBar = document.getElementById('m3bn-crest-bar');
     if (state.activeView === 'hub') {
       dom.btnHubReturn.classList.add('hidden');
       dom.btnLogbook.classList.add('hidden');
+      if (crestBar) crestBar.classList.remove('hidden');
 
       const tp1Ok = window.MissionsRegistry.isCompleted('tp1_daniell') ? '★ APROBADO' : 'Pendiente';
       const tp2Ok = window.MissionsRegistry.isCompleted('tp2_polarimetria') ? '★ APROBADO' : 'Pendiente';
@@ -84,6 +86,7 @@ window.App = (function () {
     } else {
       dom.btnHubReturn.classList.remove('hidden');
       dom.btnLogbook.classList.remove('hidden');
+      if (crestBar) crestBar.classList.add('hidden');
       const mod = getActiveModule();
       if (mod && typeof mod.getHudStats === 'function') {
         renderHudBoxes(mod.getHudStats());
