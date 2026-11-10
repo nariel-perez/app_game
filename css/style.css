@@ -1,0 +1,695 @@
+/* ==========================================================================
+   style.css — LAB_RPG Suite Unificada ("Fisicoquímica: Crónicas de Mesada")
+   Estética RPG Retro 2D (Inspirado en EarthBound y Knights of Pen & Paper 2)
+   Incluye estilos de la Libreta Universitaria y animación de Sello de Goma.
+   ========================================================================== */
+
+:root {
+  --bg-outer: #0b0e17;
+  --bg-frame: #161b29;
+  --bg-box: #1d2336;
+  --bg-btn: #262f47;
+  --bg-btn-hover: #354163;
+  --border-light: #f1faee;
+  --border-gold: #ffd166;
+  --accent-green: #06d6a0;
+  --accent-cyan: #7bdff2;
+  --accent-red: #ff5964;
+  --text-main: #f8f9fa;
+  --text-muted: #a0aec0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+body {
+  background-color: var(--bg-outer);
+  background-image:
+    radial-gradient(rgba(255, 209, 102, 0.06) 1px, transparent 1px),
+    radial-gradient(rgba(123, 223, 242, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+  color: var(--text-main);
+  font-family: 'Courier New', Courier, monospace;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  user-select: none;
+}
+
+/* Contenedor Principal tipo Consola / Mesa de Rol */
+.game-shell {
+  width: 100%;
+  max-width: 840px;
+  background-color: var(--bg-frame);
+  border: 3px solid var(--border-light);
+  box-shadow:
+    0 0 0 4px #000000,
+    0 12px 36px rgba(0, 0, 0, 0.85);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+/* Barra HUD Superior */
+.hud-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background-color: var(--bg-box);
+  border: 2px solid var(--border-gold);
+  padding: 8px 12px;
+}
+
+.hud-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.82rem;
+}
+
+.stat-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #131826;
+  padding: 3px 8px;
+  border: 1px solid #354163;
+}
+
+.stat-label {
+  color: var(--text-muted);
+}
+
+.stat-val {
+  color: var(--border-gold);
+  font-weight: bold;
+}
+
+.hud-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hud-btn {
+  background-color: var(--bg-btn);
+  color: var(--text-main);
+  border: 2px solid var(--accent-cyan);
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.08s ease, background-color 0.12s ease;
+}
+
+.hud-btn:hover {
+  background-color: var(--bg-btn-hover);
+  border-color: var(--border-gold);
+}
+
+.hud-btn:active {
+  transform: translateY(1px);
+}
+
+.hud-btn-libreta {
+  border-color: var(--border-gold);
+  background-color: #2c2618;
+  color: var(--border-gold);
+}
+
+.hud-btn-libreta:hover {
+  background-color: #3d341f;
+}
+
+.hud-btn-hub {
+  border-color: var(--accent-green);
+  color: #e6fffa;
+}
+
+.hud-btn-danger {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+/* Escenario Visual (Canvas 2D) */
+.viewport-frame {
+  width: 100%;
+  background-color: #0d111a;
+  border: 3px solid #4a5568;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#scene-canvas {
+  width: 100%;
+  height: auto;
+  max-height: 315px;
+  display: block;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+/* Caja de Diálogo Estilo EarthBound / Knights of Pen & Paper */
+.dialog-box {
+  background-color: var(--bg-box);
+  border: 3px solid var(--border-light);
+  box-shadow: inset 0 0 0 3px #0e1320;
+  padding: 12px;
+  display: flex;
+  gap: 14px;
+  min-height: 118px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.portrait-wrapper {
+  flex-shrink: 0;
+  border: 2px solid var(--border-gold);
+  background-color: #111622;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#portrait-canvas {
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+  display: block;
+}
+
+.dialog-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.speaker-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border-bottom: 1px dashed #3b4254;
+  padding-bottom: 4px;
+}
+
+#speaker-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--border-gold);
+}
+
+#speaker-role {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+#dialog-text {
+  font-size: 0.94rem;
+  line-height: 1.45;
+  color: var(--text-main);
+  min-height: 3.8em;
+  user-select: text;
+}
+
+/* Panel de Opciones / Comandos del Jugador */
+.options-panel {
+  background-color: #131826;
+  border: 2px solid #4a5568;
+  padding: 10px;
+}
+
+.options-title {
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#options-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rpg-btn {
+  background-color: var(--bg-btn);
+  color: var(--text-main);
+  border: 2px solid var(--border-light);
+  box-shadow: 0 3px 0 #090c14;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.1s ease, transform 0.08s ease;
+}
+
+.rpg-btn:hover:not(:disabled) {
+  background-color: var(--bg-btn-hover);
+  border-color: var(--border-gold);
+}
+
+.rpg-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #090c14;
+}
+
+.rpg-btn.rpg-btn-accent {
+  background-color: #1c3b35;
+  border-color: var(--accent-green);
+  color: #e6fffa;
+}
+
+.rpg-btn.rpg-btn-accent:hover:not(:disabled) {
+  background-color: #265249;
+  border-color: var(--border-gold);
+}
+
+/* Modales Superpuestos (Libreta Universitaria y Bitácora) */
+.modal-overlay {
+  position: absolute;
+  inset: 10px;
+  background-color: rgba(11, 14, 23, 0.98);
+  border: 3px solid var(--border-gold);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 60;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #3b4254;
+  padding-bottom: 8px;
+}
+
+.modal-header h2 {
+  font-size: 1.05rem;
+  color: var(--border-gold);
+}
+
+/* Estilos específicos de la Libreta Universitaria */
+.libreta-banner {
+  background-color: #182032;
+  border: 2px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  padding: 8px 12px;
+  font-weight: bold;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.libreta-banner-complete {
+  background-color: #142e28;
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.libreta-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.libreta-card {
+  background-color: #161d2e;
+  border: 2px solid #4a5568;
+  padding: 12px;
+  position: relative;
+}
+
+.libreta-card-approved {
+  border-color: var(--accent-green);
+  background-color: #132226;
+}
+
+.libreta-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #2d3748;
+  padding-bottom: 6px;
+}
+
+.libreta-tp-code {
+  background-color: var(--border-gold);
+  color: #111;
+  font-weight: bold;
+  font-size: 0.78rem;
+  padding: 2px 7px;
+}
+
+.libreta-tp-title {
+  font-weight: bold;
+  color: var(--text-main);
+  font-size: 0.92rem;
+}
+
+.libreta-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.83rem;
+}
+
+.libreta-tp-desc {
+  color: var(--text-muted);
+}
+
+.libreta-tp-summary {
+  color: var(--accent-cyan);
+}
+
+/* Sello de Goma Universitario */
+.rubber-stamp {
+  margin-top: 8px;
+  align-self: flex-end;
+  border: 3px double var(--accent-green);
+  background-color: rgba(6, 214, 160, 0.1);
+  color: var(--accent-green);
+  padding: 6px 14px;
+  text-align: center;
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.stamp-title {
+  font-weight: bold;
+  font-size: 0.88rem;
+  letter-spacing: 1px;
+}
+
+.stamp-sub {
+  font-size: 0.72rem;
+  margin-top: 2px;
+}
+
+.stamp-pending {
+  margin-top: 8px;
+  align-self: flex-end;
+  border: 1px dashed #4a5568;
+  color: #718096;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+}
+
+@keyframes stampSlam {
+  0% {
+    transform: scale(2.4) rotate(-12deg);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(0.92) rotate(-2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-3deg);
+    opacity: 1;
+  }
+}
+
+.stamp-slam-anim {
+  animation: stampSlam 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.libreta-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #2d3748;
+  padding-top: 10px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* Tabla de Bitácora */
+.logbook-meta {
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  background: #182032;
+  padding: 6px 10px;
+  border: 1px solid #3b4254;
+}
+
+.table-scroll {
+  overflow-y: auto;
+  max-height: 360px;
+  border: 1px solid #3b4254;
+}
+
+.lab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.lab-table th,
+.lab-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #283044;
+  text-align: left;
+}
+
+.lab-table th {
+  background-color: #20283d;
+  color: var(--border-gold);
+  position: sticky;
+  top: 0;
+}
+
+.lab-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Pie de página */
+.game-footer {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   MODO MÓVIL Y ORIENTACIÓN HORIZONTAL (CONSOLA PORTÁTIL)
+   ========================================================================== */
+
+#scene-canvas {
+  touch-action: manipulation;
+}
+
+/* Overlay para sugerir girar el teléfono cuando está en vertical */
+.rotate-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(11, 14, 23, 0.96);
+  z-index: 200;
+  padding: 24px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.rotate-card {
+  max-width: 360px;
+  background-color: var(--bg-frame);
+  border: 3px solid var(--border-gold);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.rotate-icon {
+  font-size: 2.6rem;
+  animation: rotatePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes rotatePulse {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-90deg); }
+}
+
+.rotate-card h2 {
+  font-size: 1rem;
+  color: var(--border-gold);
+}
+
+.rotate-card p {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--text-main);
+}
+
+/* Mostrar el aviso solo en celulares en vertical si no fue descartado */
+@media (max-width: 650px) and (orientation: portrait) {
+  body:not(.ignore-rotate-prompt) .rotate-overlay {
+    display: flex;
+  }
+}
+
+/* Optimización en Celulares en Modo Horizontal (Landscape) */
+@media (max-height: 540px) and (orientation: landscape) {
+  body {
+    padding: 4px;
+    justify-content: flex-start;
+  }
+
+  .game-shell {
+    max-width: 100%;
+    padding: 6px;
+    gap: 6px;
+    border-width: 2px;
+  }
+
+  .hud-bar {
+    padding: 4px 8px;
+    gap: 4px;
+  }
+
+  .hud-stats {
+    gap: 6px;
+    font-size: 0.72rem;
+  }
+
+  .stat-box {
+    padding: 2px 6px;
+  }
+
+  .hud-btn {
+    padding: 3px 8px;
+    font-size: 0.72rem;
+  }
+
+  #scene-canvas {
+    max-height: 44vh;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .dialog-box {
+    padding: 6px 10px;
+    min-height: 64px;
+    gap: 10px;
+  }
+
+  #portrait-canvas {
+    width: 44px;
+    height: 44px;
+  }
+
+  .speaker-header {
+    padding-bottom: 2px;
+  }
+
+  #speaker-name {
+    font-size: 0.85rem;
+  }
+
+  #speaker-role {
+    font-size: 0.68rem;
+  }
+
+  #dialog-text {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    min-height: 2.4em;
+  }
+
+  .options-panel {
+    padding: 6px 8px;
+  }
+
+  .options-title {
+    display: none;
+  }
+
+  #options-container {
+    gap: 6px;
+  }
+
+  .rpg-btn {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+
+  .game-footer {
+    display: none;
+  }
+
+  .modal-overlay {
+    inset: 4px;
+    padding: 10px;
+    gap: 8px;
+  }
+}
+
+/* Ajustes para quienes elijan continuar en vertical en pantalla chica */
+@media (max-width: 650px) and (orientation: portrait) {
+  body {
+    padding: 6px;
+    justify-content: flex-start;
+  }
+
+  .game-shell {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .hud-stats {
+    font-size: 0.74rem;
+    gap: 6px;
+  }
+
+  .dialog-box {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  #portrait-canvas {
+    width: 48px;
+    height: 48px;
+  }
+
+  #dialog-text {
+    font-size: 0.85rem;
+  }
+
+  .rpg-btn {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.84rem;
+  }
+}

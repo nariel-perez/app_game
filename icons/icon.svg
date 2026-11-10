@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" shape-rendering="crispEdges">
+  <!-- Fondo azul oscuro retro -->
+  <rect width="128" height="128" fill="#161b29" />
+  <!-- Marco dorado pixel art -->
+  <rect x="4" y="4" width="120" height="120" fill="none" stroke="#ffd166" stroke-width="6" />
+  <rect x="12" y="12" width="104" height="104" fill="#0d111a" />
+
+  <!-- Erlenmeyer / Matraz de Fisicoquímica -->
+  <rect x="54" y="24" width="20" height="8" fill="#7bdff2" />
+  <rect x="58" y="32" width="12" height="18" fill="#7bdff2" />
+  <polygon points="58,50 70,50 92,94 36,94" fill="#1d2336" stroke="#7bdff2" stroke-width="4" />
+
+  <!-- Líquido verde esmeralda reactivo -->
+  <polygon points="44,74 84,74 89,90 39,90" fill="#06d6a0" />
+
+  <!-- Burbujas / Protones y Rayo de Faraday -->
+  <rect x="54" y="80" width="6" height="6" fill="#ffd166" />
+  <rect x="68" y="82" width="4" height="4" fill="#ffffff" />
+  <rect x="61" y="62" width="6" height="6" fill="#ff5964" />
+
+  <!-- Etiqueta RPG inferior -->
+  <rect x="24" y="98" width="80" height="14" fill="#ffd166" />
+</svg>

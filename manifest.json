@@ -1,0 +1,20 @@
+{
+  "name": "Fisicoquímica RPG: Crónicas de Mesada",
+  "short_name": "Lab RPG",
+  "description": "Suite interactiva de Trabajos Prácticos de Fisicoquímica: Pila de Daniell por Oposición y Cinética de Inversión de la Sacarosa por Polarimetría.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0b0e17",
+  "theme_color": "#161b29",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
